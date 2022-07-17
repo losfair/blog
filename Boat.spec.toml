@@ -1,0 +1,3 @@
+build = "npm run build"
+artifact = "dist/main.js"
+static = "out"
