@@ -1,1 +1,1 @@
-declare const APP_RUNTIME: string;
+declare const APP_RUNTIME: "blueboat" | "cloudflare";

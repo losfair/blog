@@ -1,3 +1,18 @@
 build = "npm run build"
 artifact = "dist/main.js"
 static = "out"
+
+env = [
+  "githubClientId",
+  "allowedGithubUsers",
+]
+
+secrets = [
+  "githubClientSecret",
+  "jwtSecretKey",
+]
+
+mysql = [
+  "production",
+  "development",
+]
