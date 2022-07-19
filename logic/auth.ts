@@ -5,7 +5,7 @@ const ghApp = ("ExternalService" in globalThis ? new ExternalService.GitHub.OAut
   clientSecret: App.env.githubClientSecret,
 }) : null)!;
 
-const allowedGhUsers: number[] = ("App" in globalThis ? App.env.allowedGhUsers.split(",").filter(x => x).map(parseInt) : null)!
+const allowedGhUsers: number[] = ("App" in globalThis ? App.env.allowedGithubUsers.split(",").filter(x => x).map(parseInt) : null)!
 const tokenTTLSecs = 86400 * 7;
 export const cookieTTLSecs = tokenTTLSecs - 3600;
 
