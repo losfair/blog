@@ -23,7 +23,7 @@ export default async ({ request }: { request: Request }) => {
     status: 302,
     headers: [
       ["location", "/"],
-      ["set-cookie", generateClearCookieString("gh_login_state")],
+      //["set-cookie", generateClearCookieString("gh_login_state")], // multi-value set-cookie is broken
       ["set-cookie", generateSetCookieString("app_token", result.jwt, cookieTTLSecs * 1000)],
     ]
   })

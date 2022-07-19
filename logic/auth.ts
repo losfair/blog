@@ -54,6 +54,7 @@ export async function requestGithubLogin(redirectUrl: string, state: string): Pr
   const urlInfo = ghApp.getWebFlowAuthorizationUrl({
     scopes: ["user:email"],
     redirectUrl,
+    state,
   });
   return urlInfo.url;
 }
