@@ -22,6 +22,11 @@ export class RequestContext {
   }
 
   getIdentity(): Identity | null {
+    if(APP_RUNTIME !== "blueboat") return {
+      exp: Date.now() + 86400 * 1000,
+      ghId: 583231,
+      ghUsername: "octocat"
+    };
     if (this.identity !== undefined) {
       return this.identity;
     }
@@ -53,7 +58,6 @@ export class RequestContext {
   }
 
   getDatabase(): Mysql {
-    if(this.request.headers.get("x-blueboat-live") === "1") return App.mysql.production;
-    return App.mysql.development;
+    return App.mysql.primary;
   }
 }

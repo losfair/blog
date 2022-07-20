@@ -1,6 +1,7 @@
 import { cookieTTLSecs, processGithubGrant } from "../../../../logic/auth";
-import { generateClearCookieString, generateSetCookieString } from "../../../../logic/cookie";
+import { generateSetCookieString } from "../../../../logic/cookie";
 import { RequestContext } from "../../../../logic/request_context";
+import { mkJsonResponse } from "../../../../logic/util";
 
 export default async ({ request }: { request: Request }) => {
   if (request.method != "GET") throw new Response("invalid method");
@@ -10,14 +11,14 @@ export default async ({ request }: { request: Request }) => {
   const state = ctx.parsedUrl.searchParams.get("state") || "";
 
   const stateCookie = ctx.cookies["gh_login_state"];
-  if (!stateCookie || state !== stateCookie) return {
-    error: "invalid state",
-  }
+  if (!stateCookie || state !== stateCookie) return mkJsonResponse({
+    error: "invalid state"
+  }, 403);
 
   const result = await processGithubGrant(code);
-  if (typeof result === "number") return {
-    error: "invalid code",
-  };
+  if (typeof result === "number") return mkJsonResponse({
+    error: "invalid code"
+  }, result);
 
   return new Response(null, {
     status: 302,

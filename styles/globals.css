@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+article {
+  display: block;
+  padding-top: 5rem;
+  padding-bottom: 8rem
+}
+
+@media screen and (max-width: 480px) {
+  article {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+}
+
+.post-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.post-body ul, .post-body ol {
+  list-style-position: inside;
+}

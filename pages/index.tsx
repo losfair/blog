@@ -1,17 +1,13 @@
 import React from "react";
+import { DateFormatter } from "../components/date_formatter";
+import { PageBody } from "../components/page_body";
+import { TopBar } from "../components/top_bar";
 
-export function getEdgeProps() {
-  return {
-    props: {
-      runtime: APP_RUNTIME,
-    }
-  }
-}
-
-export default function Index({ runtime }: { runtime: string }) {
-  return (
-    <h1>
-      You're running React on the Edge! Runtime is {runtime}.
-    </h1>
-  );
+export default function Index() {
+  return <PageBody title="About">
+    <TopBar title="About" selected="about" />
+      <p>
+        Hello world!
+      </p>
+  </PageBody>
 }

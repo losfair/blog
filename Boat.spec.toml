@@ -13,6 +13,5 @@ secrets = [
 ]
 
 mysql = [
-  "production",
-  "development",
+  "primary",
 ]

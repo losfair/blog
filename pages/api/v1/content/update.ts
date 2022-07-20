@@ -1,6 +1,6 @@
 import { RequestContext } from "../../../../logic/request_context"
 
-interface UpdateRequest {
+export interface UpdateRequest {
   id?: string,
   shortKey?: string,
   title?: string,
@@ -38,19 +38,26 @@ export default async ({ request }: { request: Request }) => {
 
   if (json.id) {
     // update
+    const sets = [
+      !isUndefinedOrNull(json.shortKey) ? "short_key = :short_key" : "",
+      !isUndefinedOrNull(json.title) ? "title = :title" : "",
+      !isUndefinedOrNull(json.body) ? "body = :body" : "",
+      !isUndefinedOrNull(json.isPublic) ? "is_public = :is_public" : "",
+    ].filter(x => x).join(", ");
+    if (!sets) return { id: json.id };
+
     await db.exec(`
-UPDATE post SET
-${!isUndefinedOrNull(json.shortKey) ? "short_key = :shortKey" : ""}
-${!isUndefinedOrNull(json.title) ? "title = :title" : ""}
-${!isUndefinedOrNull(json.body) ? "body = :body" : ""}
-${!isUndefinedOrNull(json.isPublic) ? "is_public = :isPublic" : ""}
-WHERE id = :id`, {
+UPDATE post SET ${sets} WHERE id = :id`, {
       id: ["s", json.id],
-      shortKey: ["s", json.shortKey || ""],
+      short_key: ["s", json.shortKey || ""],
       title: ["s", json.title || ""],
       body: ["s", json.body || ""],
-      isPublic: ["i", json.isPublic ? 1 : 0],
-    }, "")
+      is_public: ["i", json.isPublic ? 1 : 0],
+    }, "");
+
+    return {
+      id: json.id,
+    }
   } else {
     if (!json.title) {
       return new Response("title is required", { status: 400 });
@@ -59,18 +66,17 @@ WHERE id = :id`, {
     const author = "gh:" + identity.ghId;
     await db.exec(`
 INSERT INTO post (id, short_key, author, title, body, is_public)
-VALUES(:id, :shortKey, :author, :title, :body, :isPublic)`, {
+VALUES(:id, :short_key, :author, :title, :body, :is_public)`, {
       id: ["s", id],
-      shortKey: ["s", json.shortKey || id],
+      short_key: ["s", json.shortKey || id],
       author: ["s", author],
       title: ["s", json.title],
       body: ["s", json.body || ""],
-      isPublic: ["i", json.isPublic ? 1 : 0],
+      is_public: ["i", json.isPublic ? 1 : 0],
     }, "");
-  }
-
-  return {
-    ok: true,
+    return {
+      id,
+    }
   }
 }
 
