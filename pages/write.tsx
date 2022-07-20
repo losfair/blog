@@ -99,7 +99,7 @@ export default function Write({ post, identity }: { post: Post | null, identity:
       alert(`Failed to delete post: ${error}`);
       return;
     }
-    router.push(`/`);
+    router.push(`/posts`);
   }, []);
 
   return (

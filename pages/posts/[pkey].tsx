@@ -17,26 +17,50 @@ function renderMarkdown_blueboat(source: string): string {
     const html = TextUtil.DOM.HTML.parse(str, {
       fragment: true,
     });
-    const addClassForTag = (tag: string, classToAdd: string) => {
+    const postprocessDocument = ({ classForTag }: { classForTag: Record<string, string> }) => {
       html.queryWithFilter({
-        type: "tag",
-        tag,
+        type: "true",
       }, node => {
         const data = node.get();
         if (data.type === "element") {
-          const klass = data.attrs.find(x => x.name == "class");
-          if (klass) {
-            klass.value = classToAdd + " " + klass.value;
-          } else {
-            data.attrs.push({ name: "class", value: classToAdd });
+          let changed = false;
+
+          if (data.name === "a") {
+            if (!data.attrs.find(x => x.name === "target")) {
+              data.attrs.push({
+                name: "target",
+                value: "_blank",
+              });
+              changed = true;
+            }
           }
-          node.update(data);
+
+          const classToAdd = classForTag[data.name];
+          if (classToAdd) {
+            const klass = data.attrs.find(x => x.name == "class");
+            if (klass) {
+              klass.value = classToAdd + " " + klass.value;
+            } else {
+              data.attrs.push({ name: "class", value: classToAdd });
+            }
+            changed = true;
+          }
+
+          if (changed) node.update(data);
         }
         return true;
       })
     }
-    addClassForTag("ul", "list-disc");
-    addClassForTag("ol", "list-decimal");
+    postprocessDocument({
+      classForTag: {
+        ul: "list-disc",
+        ol: "list-decimal",
+        a: "text-blue-600",
+        h1: "text-xl font-bold",
+        h2: "text-lg font-semibold",
+        h3: "font-semibold",
+      },
+    });
     return new TextDecoder().decode(html.serialize());
   } catch (e) {
     console.log("html transform failed: " + e.stack);
@@ -72,10 +96,10 @@ export async function getEdgeProps(params: GetEdgePropsParams) {
 
 export default function PostByKey({ post, rendered, isAdmin }: { post: Post, rendered: string, isAdmin: boolean }) {
   return <PageBody title={post.title}>
-    <TopBar title={post.title} selected=""
+    <TopBar title={post.title} selected={post.shortKey === "about" ? "about" : ""}
       secondary={<div className="opacity-60 text-sm flex flex-row gap-2 items-center">
         <DateFormatter dateMs={post.createdAt} />
-        <PostPropIcon post={post} className="w-4 h-4" />
+        {isAdmin && <PostPropIcon post={post} className="w-4 h-4" />}
       </div>}
     />
     <div className="flex flex-col gap-2">

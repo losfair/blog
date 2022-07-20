@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
+        <body className="bg-white dark:bg-zinc-900 text-black dark:text-zinc-100">
           <Main />
           <FlareactScript />
         </body>
