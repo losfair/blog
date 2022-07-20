@@ -6,6 +6,8 @@ import { PageBody } from "../../components/page_body";
 import { TopBar } from "../../components/top_bar";
 import { DateFormatter } from "../../components/date_formatter";
 import * as marked from "marked";
+import { PostPropIcon } from "../../components/post_prop_icon";
+const { default: Link } = require("flareact/link");
 
 function renderMarkdown_blueboat(source: string): string {
   const str = TextUtil.Markdown.renderToHtml(source, {
@@ -71,12 +73,16 @@ export async function getEdgeProps(params: GetEdgePropsParams) {
 export default function PostByKey({ post, rendered, isAdmin }: { post: Post, rendered: string, isAdmin: boolean }) {
   return <PageBody title={post.title}>
     <TopBar title={post.title} selected=""
-      secondary={<p className="opacity-60 text-sm"><DateFormatter dateMs={post.createdAt} /></p>}
+      secondary={<div className="opacity-60 text-sm flex flex-row gap-2 items-center">
+        <DateFormatter dateMs={post.createdAt} />
+        <PostPropIcon post={post} className="w-4 h-4" />
+      </div>}
     />
     <div className="flex flex-col gap-2">
       <div className="post-body" dangerouslySetInnerHTML={{ __html: rendered }}></div>
-      {isAdmin && <div className="opacity-60 pt-8">
-        <a href={`/api/v1/content/load?id=${encodeURIComponent(post.id)}`} className="underline" target="_blank">Source</a>
+      {isAdmin && <div className="opacity-60 pt-8 flex flex-col gap-2 text-sm">
+        <div className="flex flex-row"><a href={`/api/v1/content/load?id=${encodeURIComponent(post.id)}`} className="underline" target="_blank">Source</a></div>
+        <div className="flex flex-row"><Link href="/write" as={`/write?id=${encodeURIComponent(post.id)}`}><a className="underline">Edit</a></Link></div>
       </div>}
     </div>
   </PageBody>
