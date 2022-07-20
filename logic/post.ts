@@ -28,7 +28,7 @@ function mockPostList(): Post[] {
       shortKey: "test-key-1",
       author: "gh:583231",
       title: "Test Post 1 中文",
-      body: "This is the content of Test Post 1. Some 中文/Chinese text.\n\nAnd another paragraph.\n\n- Item 1\n- Item 2\n\n",
+      body: "This is the content of Test Post 1. Some 中文/Chinese text.\n\nAnd another paragraph.\n\n- Item 1\n- Item 2\n\n[Some link](https://example.com).",
       isPublic: false,
       isListed: true,
       createdAt: new Date("2021-10-22").getTime(),

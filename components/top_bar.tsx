@@ -21,7 +21,7 @@ export function TopBar({ title, selected, secondary }: { title: string, selected
 }
 
 function SelectableLink({ selectionKey, selected, href, children }: { selectionKey: string, selected: string, href: string, children: React.ReactNode }) {
-  return <Link href={href}>
+  return <Link href={href} prefetch={false}>
     <a className={`${selectionKey === selected ? "opacity-60" : "underline"}`}>{children}</a>
   </Link>
 }
