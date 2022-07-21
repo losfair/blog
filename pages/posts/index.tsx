@@ -38,7 +38,7 @@ export default function Posts({ posts, isAdmin }: { posts: Post[], isAdmin: bool
     <div className="flex flex-col gap-2">
       {posts.map(p => {
         return <div key={p.id} className="flex flex-row items-center gap-1">
-          <h2><Link href="/posts/[pkey]" as={`/posts/${p.shortKey}`} prefetch={false}><a>{p.title}</a></Link></h2>
+          <h2 className="autohyphens"><Link href="/posts/[pkey]" as={`/posts/${p.shortKey}`} prefetch={false}><a>{p.title}</a></Link></h2>
           <div className="grow"></div>
           <div className="text-sm opacity-60 flex flex-row items-center gap-2">
             <PostPropIcon post={p} className="w-4 h-4" />

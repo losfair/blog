@@ -36,3 +36,7 @@ article {
 pre {
   overflow-x: scroll;
 }
+
+.autohyphens {
+  hyphens: auto;
+}
