@@ -18,6 +18,7 @@ const classForTag: Record<string, string> = {
   h3: "font-semibold",
   p: "text-zinc-800 dark:text-zinc-300",
   li: "text-zinc-800 dark:text-zinc-300",
+  img: "bg-zinc-100 dark:bg-zinc-800 rounded-md",
 };
 
 function renderMarkdown_blueboat(source: string): string {

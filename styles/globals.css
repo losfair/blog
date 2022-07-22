@@ -33,6 +33,10 @@ article {
   transition: opacity .2s ease;
 }
 
+.post-body p>img:not(:last-child) {
+  margin-bottom: .75rem;
+}
+
 pre {
   overflow-x: scroll;
 }
