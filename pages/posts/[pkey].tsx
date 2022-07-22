@@ -10,14 +10,6 @@ import { PostPropIcon } from "../../components/post_prop_icon";
 const { default: Link } = require("flareact/link");
 
 const classForTag: Record<string, string> = {
-  ul: "list-disc",
-  ol: "list-decimal",
-  a: "underline text-black dark:text-white dark:hover:opacity-60",
-  h1: "text-xl font-bold",
-  h2: "text-lg font-semibold",
-  h3: "font-semibold",
-  p: "text-zinc-800 dark:text-zinc-300",
-  li: "text-zinc-800 dark:text-zinc-300",
   img: "bg-zinc-100 dark:bg-zinc-800 rounded-md",
 };
 
@@ -121,7 +113,7 @@ export default function PostByKey({ post, rendered, isAdmin, transformHtmlAtFron
       </div>}
     />
     <div className="flex flex-col gap-2">
-      <div className="post-body" ref={postBodyRef} dangerouslySetInnerHTML={{ __html: rendered }}></div>
+      <div className="post-body prose prose-zinc dark:prose-invert" ref={postBodyRef} dangerouslySetInnerHTML={{ __html: rendered }}></div>
       {isAdmin && <div className="opacity-60 pt-8 flex flex-col gap-2 text-sm">
         <div className="flex flex-row"><a href={`/api/v1/content/load?id=${encodeURIComponent(post.id)}`} className="underline" target="_blank">Source</a></div>
         <div className="flex flex-row"><Link href="/write" as={`/write?id=${encodeURIComponent(post.id)}`} prefetch={false}><a className="underline">Edit</a></Link></div>

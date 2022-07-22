@@ -15,32 +15,11 @@ article {
   }
 }
 
-.post-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.post-body ul,
-.post-body ol {
-  list-style-position: inside;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.post-body a {
-  transition: opacity .2s ease;
-}
-
-.post-body p>img:not(:last-child) {
-  margin-bottom: .75rem;
-}
-
-pre {
-  overflow-x: scroll;
-}
-
 .autohyphens {
   hyphens: auto;
+}
+
+.dark a:hover {
+  opacity: 0.6;
+  transition: opacity .2s ease;
 }
