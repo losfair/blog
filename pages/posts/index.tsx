@@ -40,7 +40,7 @@ export default function Posts({ posts, isAdmin }: { posts: Post[], isAdmin: bool
         return <div key={p.id} className="flex flex-row items-center gap-1">
           <h2 className="autohyphens"><Link href="/posts/[pkey]" as={`/posts/${p.shortKey}`} prefetch={false}><a>{p.title}</a></Link></h2>
           <div className="grow"></div>
-          <div className="text-sm opacity-60 flex flex-row items-center gap-2">
+          <div className="text-sm opacity-60 flex flex-row items-center gap-2 shrink-0">
             <PostPropIcon post={p} className="w-4 h-4" />
             <p><DateFormatter dateMs={p.createdAt} /></p>
           </div>

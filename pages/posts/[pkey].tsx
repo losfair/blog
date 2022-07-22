@@ -23,6 +23,8 @@ const classForTag: Record<string, string> = {
 function renderMarkdown_blueboat(source: string): string {
   const str = TextUtil.Markdown.renderToHtml(source, {
     disable_sanitization: true,
+    enable_strikethrough: true,
+    enable_tables: true,
   });
   try {
     const html = TextUtil.DOM.HTML.parse(str, {
