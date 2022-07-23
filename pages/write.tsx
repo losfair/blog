@@ -103,8 +103,8 @@ export default function Write({ post, identity }: { post: Post | null, identity:
   }, []);
 
   return (
-    <PageBody title="Write">
-      <TopBar title="Write" selected=""
+    <PageBody title="Write" cn={undefined}>
+      <TopBar title="Write" selected="" isChinaSite={false}
       />
       <div>
         {!!post && <div className="mb-6">

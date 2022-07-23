@@ -5,6 +5,7 @@ static = "out"
 env = [
   "githubClientId",
   "allowedGithubUsers",
+  { key = "icpBeian", optional = true },
 ]
 
 secrets = [

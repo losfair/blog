@@ -38,7 +38,7 @@ function ColorModeSwitch() {
   )
 }
 
-export function PageBody({ title, children }: { title: string, children: React.ReactNode }) {
+export function PageBody({ title, children, cn }: { title: string, children: React.ReactNode, cn: string | undefined }) {
   return (
     <>
       <Head>
@@ -56,6 +56,10 @@ export function PageBody({ title, children }: { title: string, children: React.R
             <p>Powered by <a className="underline" target="_blank" href="https://github.com/losfair/blueboat">Blueboat</a></p>
             <div className="grow"></div>
           </div>
+          {!!cn && <div className="flex flex-row items-center">
+            <p><a className="underline" target="_blank" href="https://beian.miit.gov.cn/">{cn}</a></p>
+            <div className="grow"></div>
+          </div>}
         </div>
         <div className="pt-8">
           <ColorModeSwitch />

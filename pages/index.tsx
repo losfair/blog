@@ -2,16 +2,18 @@ import React from "react";
 import { PageBody } from "../components/page_body";
 import { TopBar } from "../components/top_bar";
 import { GetEdgePropsParams } from "../logic/types";
+import { chinaSiteIcpBeian } from "../logic/util";
 import * as pkeyPage from "./posts/[pkey]";
 
 export async function getEdgeProps(params: GetEdgePropsParams) {
   let pageProps: any;
+  let cn = chinaSiteIcpBeian(params.event.request);
 
   try {
     pageProps = await pkeyPage.getEdgeProps({
       ...params,
       params: {
-        pkey: "about",
+        pkey: cn ? "about-cn" : "about",
       },
     });
   } catch (e) {
@@ -25,14 +27,15 @@ export async function getEdgeProps(params: GetEdgePropsParams) {
   return {
     props: {
       page: pageProps.props,
+      cn,
     }
   }
 }
 
-export default function Index({ page }: { page: any }) {
+export default function Index({ page, cn }: { page: any, cn: string | undefined }) {
   if (!page) return (
-    <PageBody title="About">
-      <TopBar title="About" selected="about"
+    <PageBody title="About" cn={cn}>
+      <TopBar title="About" selected="about" isChinaSite={!!cn}
       />
       <p>Create a post with slug "about" and it will be displayed on this page.</p>
     </PageBody>

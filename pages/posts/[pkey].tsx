@@ -7,6 +7,7 @@ import { TopBar } from "../../components/top_bar";
 import { DateFormatter } from "../../components/date_formatter";
 import * as marked from "marked";
 import { PostPropIcon } from "../../components/post_prop_icon";
+import { chinaSiteIcpBeian } from "../../logic/util";
 const { default: Link } = require("flareact/link");
 
 const classForTag: Record<string, string> = {
@@ -88,11 +89,12 @@ export async function getEdgeProps(params: GetEdgePropsParams) {
       rendered: APP_RUNTIME === "blueboat" ? renderMarkdown_blueboat(source) : marked.marked.parse(source),
       transformHtmlAtFrontend: APP_RUNTIME !== "blueboat",
       isAdmin: !!identity,
+      cn: chinaSiteIcpBeian(params.event.request),
     },
   }
 }
 
-export default function PostByKey({ post, rendered, isAdmin, transformHtmlAtFrontend }: { post: Post, rendered: string, isAdmin: boolean, transformHtmlAtFrontend: boolean }) {
+export default function PostByKey({ post, rendered, isAdmin, transformHtmlAtFrontend, cn }: { post: Post, rendered: string, isAdmin: boolean, transformHtmlAtFrontend: boolean, cn: string | undefined }) {
   const postBodyRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!transformHtmlAtFrontend) return;
@@ -105,8 +107,8 @@ export default function PostByKey({ post, rendered, isAdmin, transformHtmlAtFron
       }
     }
   }, []);
-  return <PageBody title={post.title}>
-    <TopBar title={post.title} selected={post.shortKey === "about" ? "about" : ""}
+  return <PageBody title={post.title} cn={cn}>
+    <TopBar title={post.title} selected={post.shortKey === "about" ? "about" : ""} isChinaSite={!!cn}
       secondary={<div className="opacity-60 text-sm flex flex-row gap-2 items-center">
         <DateFormatter dateMs={post.createdAt} />
         {isAdmin && <PostPropIcon post={post} className="w-4 h-4" />}

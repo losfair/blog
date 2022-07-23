@@ -6,3 +6,11 @@ export function mkJsonResponse(data: unknown, status: number = 200): Response {
     },
   });
 }
+
+export function chinaSiteIcpBeian(request: Request): string | undefined {
+  if ("App" in globalThis && App.env.icpBeian && request.headers.get("x-cn-site")) {
+    return App.env.icpBeian;
+  }
+
+  return undefined;
+}

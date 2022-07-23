@@ -5,8 +5,8 @@ import React from "react";
 import { PageBody } from "../../components/page_body";
 import { TopBar } from "../../components/top_bar";
 import { DateFormatter } from "../../components/date_formatter";
-import { EyeOffIcon, LockIcon } from "../../components/icon";
 import { PostPropIcon } from "../../components/post_prop_icon";
+import { chinaSiteIcpBeian } from "../../logic/util";
 const { default: Link } = require("flareact/link");
 
 export async function getEdgeProps(params: GetEdgePropsParams) {
@@ -24,13 +24,14 @@ export async function getEdgeProps(params: GetEdgePropsParams) {
     props: {
       posts,
       isAdmin: !!identity,
+      cn: chinaSiteIcpBeian(params.event.request),
     },
   }
 }
 
-export default function Posts({ posts, isAdmin }: { posts: Post[], isAdmin: boolean }) {
-  return <PageBody title="Thoughts">
-    <TopBar title="Thoughts" selected="posts"
+export default function Posts({ posts, isAdmin, cn }: { posts: Post[], isAdmin: boolean, cn: string | undefined }) {
+  return <PageBody title="Thoughts" cn={cn}>
+    <TopBar title="Thoughts" selected="posts" isChinaSite={!!cn}
       secondary={isAdmin ? <div className="opacity-60">
         <Link href="/write"><a className="underline">Write</a></Link>
       </div> : undefined}
