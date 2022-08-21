@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <atom:link href="{{ selfUrl }}" rel="self" type="application/rss+xml" />
+    <title>{{ siteTitle }}</title>
+    <link>{{ siteLink }}</link>
+    <description>{{ siteDescription }}</description>
+    <language>en-US</language>
+    {% for p in posts %}
+    <item>
+      <title>{{ p.title }}</title>
+      <link>{{ siteLink }}/posts/{{ p.shortKey }}</link>
+      <guid isPermaLink="false">{{ siteLink }}/by-id/{{ p.id }}</guid>
+      <pubDate>{{ p.utcDate }}</pubDate>
+      <description><![CDATA[ <a href="{{ siteLink }}/posts/{{ p.shortKey }}">Read this post</a> ]]></description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

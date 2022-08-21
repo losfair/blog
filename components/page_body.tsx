@@ -49,7 +49,8 @@ export function PageBody({ title, children, cn }: { title: string, children: Rea
         {children}
         <div className="flex flex-col gap-2 text-xs pt-12 font-mono opacity-60">
           <div className="flex flex-row items-center">
-            <p>&copy; 2022 Heyang Zhou</p>
+            <p>&copy; 2022 Heyang Zhou ·&nbsp;</p>
+            <p><a className="underline" target="_blank" href="/api/feed">RSS</a></p>
             <div className="grow"></div>
           </div>
           <div className="flex flex-row items-center">

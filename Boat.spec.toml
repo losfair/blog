@@ -6,6 +6,7 @@ env = [
   "githubClientId",
   "allowedGithubUsers",
   { key = "icpBeian", optional = true },
+  { key = "feedOrigin", optional = true },
 ]
 
 secrets = [
